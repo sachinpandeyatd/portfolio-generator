@@ -1,0 +1,19 @@
+# Node (frontend)
+frontendnode_modules
+frontenddist
+frontend.env
+
+# Java (backend)
+backendtarget
+backend.idea
+backend.classpath
+backend.project
+backend.settings
+backend.env
+backend.DS_Store
+
+# General
+.log
+.iml
+.DS_Store
+.env
