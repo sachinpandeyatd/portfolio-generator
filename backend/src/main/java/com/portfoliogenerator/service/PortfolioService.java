@@ -2,14 +2,19 @@ package com.portfoliogenerator.service;
 
 import com.portfoliogenerator.dto.PortfolioResponse;
 import com.portfoliogenerator.exception.FileStorageException;
+import com.portfoliogenerator.exception.ResourceNotFoundException;
 import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.nio.charset.MalformedInputException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -152,4 +157,25 @@ public class PortfolioService {
 				.replace("\\", "")
                 .replace("'", "'");
     }
+
+	public Resource loadPortfolioFile(String portfolioId, String filename) {
+		try{
+			Path portfolioDir = this.portfolioStorageLocation.resolve(portfolioId).normalize();
+			Path filePath = portfolioDir.resolve(filename).normalize();
+
+			if(!filePath.startsWith(portfolioDir)){
+				throw new FileStorageException("Can not access files outside of portfolio directory.");
+			}
+
+			Resource resource = new UrlResource((filePath.toUri()));
+
+			if(resource.exists() && resource.isReadable()){
+				return resource;
+			}else {
+				throw new ResourceNotFoundException("File not found or not readable: " + filename + " in portfolio " + portfolioId);
+			}
+		}catch (MalformedURLException e){
+			throw new ResourceNotFoundException("File not found: " + filename + " --- "+ e);
+		}
+	}
 }
