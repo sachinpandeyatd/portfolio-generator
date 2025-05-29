@@ -1,13 +1,13 @@
 import axios from "axios";
 
-
-const API_BASE_URL = process.local.frontend.env.API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const uploadResume = async (file) => {
     const formData = new FormData();
     formData.append('resumeFile', file);
 
     try{
+        console.log(API_BASE_URL);
         const response = await axios.post(`${API_BASE_URL}/resume/upload`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
