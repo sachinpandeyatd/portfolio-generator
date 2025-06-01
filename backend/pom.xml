@@ -39,6 +39,18 @@
             <artifactId>tika-core</artifactId>
             <version>3.2.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-vertexai</artifactId>
+            <version>1.23.0</version>
+        </dependency>
+
+        <!-- For handling the secrets -->
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>java-dotenv</artifactId>
+            <version>5.2.2</version>
+        </dependency>
     </dependencies>
 
     <build>
