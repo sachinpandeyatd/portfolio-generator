@@ -1,10 +1,8 @@
 package com.portfoliogenerator;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.apache.tika.Tika;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class PortfolioGeneratorApplication {
@@ -16,10 +14,5 @@ public class PortfolioGeneratorApplication {
             }
         });
         SpringApplication.run(PortfolioGeneratorApplication.class, args);
-    }
-
-    @Bean
-    public Tika tika() {
-        return new Tika();
     }
 }

@@ -3,16 +3,18 @@ package com.portfoliogenerator.service;
 import com.portfoliogenerator.dto.PortfolioResponse;
 import com.portfoliogenerator.exception.FileStorageException;
 import com.portfoliogenerator.exception.ResourceNotFoundException;
-import org.apache.tika.Tika;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -29,14 +31,12 @@ public class PortfolioService {
 	private final IdGeneratorService idGeneratorService;
 	private final String appBaseUrl;
 	private final GeminiService geminiService;
-	private final Tika tika;
 
-	public PortfolioService(@Value("${app.portfolio.storage-path}") String storagePath, @Value("${app.portfolio.base-url}") String baseUrl, IdGeneratorService idGeneratorService, GeminiService geminiService, Tika tika){
+	public PortfolioService(@Value("${app.portfolio.storage-path}") String storagePath, @Value("${app.portfolio.base-url}") String baseUrl, IdGeneratorService idGeneratorService, GeminiService geminiService){
 		this.portfolioStorageLocation = Paths.get(storagePath).toAbsolutePath().normalize();
 		this.appBaseUrl = baseUrl;
 		this.idGeneratorService = idGeneratorService;
 		this.geminiService = geminiService;
-		this.tika = tika;
 
 		try{
 			Files.createDirectories(this.portfolioStorageLocation);
@@ -51,7 +51,11 @@ public class PortfolioService {
 		if (originalFilename.contains("..")) {
 			throw new FileStorageException("Sorry! Filename contains invalid path sequence " + originalFilename);
 		}
-		if (!originalFilename.toLowerCase().endsWith(".pdf") && !originalFilename.toLowerCase().endsWith(".docx")) {
+
+		boolean isPdf = originalFilename.endsWith(".pdf");
+		boolean isDocx = originalFilename.endsWith(".docx");
+
+		if (!isPdf && !isDocx) {
 			throw new FileStorageException("Invalid file type. Only PDF and DOCX are allowed. Received: " + originalFilename);
 		}
 
@@ -71,7 +75,21 @@ public class PortfolioService {
 
 		String resumeText;
 		try(InputStream inputStream = file.getInputStream()){
-			resumeText = tika.parseToString(inputStream);
+			if (isPdf) {
+				System.out.println("Parsing PDF: " + originalFilename);
+				try (PDDocument document = Loader.loadPDF(inputStream.readAllBytes())) {
+					PDFTextStripper pdfStripper = new PDFTextStripper();
+					resumeText = pdfStripper.getText(document);
+				}
+			} else if (isDocx) {
+				System.out.println("Parsing DOCX: " + originalFilename);
+				try (XWPFDocument document = new XWPFDocument(inputStream);
+					 XWPFWordExtractor extractor = new XWPFWordExtractor(document)) {
+					resumeText = extractor.getText();
+				}
+			} else {
+				throw new FileStorageException("Unsupported file type for parsing: " + originalFilename);
+			}
 		}catch (Exception e){
 			throw new FileStorageException("Failed to parse resume file: " + originalFilename, e);
 		}

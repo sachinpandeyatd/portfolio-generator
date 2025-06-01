@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sachin Pandey - Full-Stack Software Engineer</title>
+    <style>
+        :root {
+            --primary-color: #007bff; /* A nice blue for accents */
+            --secondary-color: #6c757d; /* Grey for secondary text */
+            --background-color: #f8f9fa; /* Light background */
+            --card-background: #ffffff; /* White card background */
+            --text-color: #343a40; /* Dark text */
+            --border-color: #e9ecef; /* Light border */
+            --link-color: var(--primary-color);
+            --link-hover-color: #0056b3;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        header .tagline {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            font-size: 0.95em;
+        }
+
+        .contact-info span,
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+            opacity: 0.9;
+        }
+
+        .contact-info span::before,
+        .contact-info a::before {
+            margin-right: 5px;
+            font-size: 1.1em; /* Using unicode characters for icons */
+        }
+
+        .contact-info span:nth-of-type(1)::before { content: '📍'; } /* Location */
+        .contact-info span:nth-of-type(2)::before { content: '📞'; } /* Phone */
+        .contact-info a:nth-of-type(1)::before { content: '✉️'; } /* Email */
+        .contact-info a:nth-of-type(2)::before { content: '🔗'; } /* LinkedIn */
+        .contact-info a:nth-of-type(3)::before { content: '🐙'; } /* GitHub */
+
+        main {
+            padding: 40px 0;
+            flex-grow: 1;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: var(--card-background);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            margin-bottom: 25px; /* For spacing between cards */
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--text-color);
+            font-size: 1.4em;
+            margin-bottom: 8px;
+        }
+
+        h4 {
+            color: var(--secondary-color);
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            font-weight: normal;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            padding-left: 1.5em;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        ul li::before {
+            content: '•';
+            color: var(--primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: var(--link-hover-color);
+        }
+
+        /* Specific section styling */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background-color: var(--background-color);
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-category h3 {
+            color: var(--primary-color);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .experience-item,
+        .project-item,
+        .education-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .experience-item:last-child,
+        .project-item:last-child,
+        .education-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .experience-item .dates,
+        .education-item .dates {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+            margin-top: -5px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .project-item h3 {
+            margin-bottom: 5px;
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9em;
+            margin-top: auto; /* Pushes footer to the bottom */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            header .tagline {
+                font-size: 1.1em;
+            }
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .card {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 30px 0;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            header .tagline {
+                font-size: 1em;
+            }
+            main {
+                padding: 20px 0;
+            }
+            .container {
+                padding: 0 15px;
+            }
+            .card {
+                margin-bottom: 15px;
+            }
+            h2 {
+                font-size: 1.6em;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sachin Pandey</h1>
+            <p class="tagline">Full-Stack Software Engineer</p>
+            <div class="contact-info">
+                <span>📍 Bengaluru, India</span>
+                <span>📞 +91-7518693356</span>
+                <span>✉️ <a href="mailto:33sachinedu@gmail.com">33sachinedu@gmail.com</a></span>
+                <span>🔗 <a href="https://linkedin.com/in/sachinpandeyatd" target="_blank" rel="noopener noreferrer">linkedin.com/in/sachinpandeyatd</a></span>
+                <span>🐙 <a href="https://github.com/sachinpandeyatd" target="_blank" rel="noopener noreferrer">github.com/sachinpandeyatd</a></span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="summary" class="card">
+            <h2>Summary</h2>
+            <p>Full-Stack Software Engineer (3 yrs exp) specializing in building scalable healthcare & e-commerce applications using PHP (Laravel & Plain), Java/Spring Boot, & React.js. Proficient in MySQL/PostgreSQL, REST APIs, Agile methodologies, and cloud deployment concepts.</p>
+        </section>
+
+        <section id="skills" class="card">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Backend</h3>
+                    <ul>
+                        <li>PHP (Plain & Laravel)</li>
+                        <li>Java (Spring/Spring Boot)</li>
+                        <li>MySQL</li>
+                        <li>PostgreSQL</li>
+                        <li>REST APIs</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <ul>
+                        <li>JavaScript</li>
+                        <li>React.js</li>
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>Bootstrap (familiarity)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Full-Stack</h3>
+                    <ul>
+                        <li>MVC & Layered Architectures</li>
+                        <li>Full Lifecycle Development</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools & Environment</h3>
+                    <ul>
+                        <li>Git/GitHub</li>
+                        <li>Linux (GNU/Arch)</li>
+                        <li>VS Code/IntelliJ/Eclipse</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Databases</h3>
+                    <ul>
+                        <li>Relational (MySQL, PostgreSQL)</li>
+                        <li>NoSQL (MongoDB)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Methodologies & Cloud</h3>
+                    <ul>
+                        <li>Agile/Waterfall</li>
+                        <li>CI/CD Concepts</li>
+                        <li>Azure/Hostinger (Familiar)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="card">
+            <h2>Experience</h2>
+            <div class="experience-item">
+                <h3>Full-stack Software Engineer</h3>
+                <h4>Infinite Computer Solutions, Bengaluru</h4>
+                <p class="dates">Aug 2022 – Ongoing</p>
+                <ul>
+                    <li>Leveraged deep expertise in PHP and the Laravel framework to architect, develop, and deploy robust backend solutions for critical US Medicare and Medicaid systems, enhancing efficiency and optimizing complex workflows for general users.</li>
+                    <li>Engineered over 25 new, data-intensive interfaces from scratch using PHP and Laravel, significantly improving user interaction and data accessibility within the healthcare domain</li>
+                    <li>Successfully implemented more than 50 complex Change Requests (CRs) by modifying and extending the PHP/Laravel codebase, delivering crucial functionality enhancements, and adapting systems to evolving healthcare regulations</li>
+                    <li>Utilized PHP for seamless integration with MySQL and PostgreSQL databases, employing Eloquent ORM and optimized SQL queries for efficient data management.</li>
+                    <li>Collaborated in a multi-technology environment, ensuring smooth interoperability between PHP components and systems built with Java/Spring Boot, potentially utilizing Apache Camel for integration patterns</li>
+                    <li>Core Technologies: PHP, Laravel, MySQL, PostgreSQL, Git, Composer.</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3>Full-stack Web Development Intern</h3>
+                <h4>Infinoscope, Ahmedabad</h4>
+                <p class="dates">Feb 2021 – Apr 2021</p>
+                <ul>
+                    <li>Spearheaded the design, implementation, and deployment of a high-performing e-commerce platform with integrated CMS.</li>
+                    <li>Used PHP, Laravel, Javascript, React.js, REST APIs, MySQL, Hostinger (for deployment), Stripe (Payment gateway)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="projects" class="card">
+            <h2>Projects</h2>
+            <div class="project-item">
+                <h3>Chatme</h3>
+                <p>A real-time instant messaging app using PHP for backend operations, database management, and implementing long polling. JS on the client.</p>
+            </div>
+            <div class="project-item">
+                <h3>short-url</h3>
+                <p>A URL shortening service with create/delete functionality, utilizing PHP for all backend logic and database interactions</p>
+            </div>
+        </section>
+
+        <section id="education" class="card">
+            <h2>Education</h2>
+            <div class="education-item">
+                <h3>Bachelor of Technology in Computer Science and Engineering</h3>
+                <h4>Babu Banarasi Das University, Lucknow</h4>
+                <p class="dates">2018 - 2022</p>
+            </div>
+            <div class="education-item">
+                <h3>High School (10th) and Secondary High School (12th) education with Science and Mathematics</h3>
+                <h4>Radhika International Academy, Siddharth Nagar, Uttar Pradesh</h4>
+                <p class="dates">2014 - 2018</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Sachin Pandey. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

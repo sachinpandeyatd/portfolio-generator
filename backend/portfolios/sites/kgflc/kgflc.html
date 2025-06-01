@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sachin Pandey - Full-Stack Software Engineer</title>
+    <style>
+        /* CSS Variables for colors */
+        :root {
+            --primary-bg-light: #f8f9fa;
+            --secondary-bg-light: #e9ecef;
+            --header-bg: #2c3e50; /* Dark charcoal blue */
+            --header-text-color: #ffffff;
+            --text-color: #333;
+            --accent-color: #007bff; /* Vibrant blue */
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+            --skill-pill-bg: #e0f2f7; /* Light blue */
+            --skill-pill-text: #0056b3; /* Darker blue */
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, var(--primary-bg-light), var(--secondary-bg-light));
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3; /* Darker accent on hover */
+            text-decoration: underline;
+        }
+
+        /* Container for main content */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Header/Hero Section */
+        .header {
+            background-color: var(--header-bg);
+            color: var(--header-text-color);
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin: 0 0 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.5em;
+            margin: 0 0 20px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px 30px;
+            font-size: 1em;
+            margin-top: 30px;
+        }
+
+        .contact-info a, .contact-info span {
+            color: var(--header-text-color);
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* Section Styling */
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-card h2 {
+            font-size: 2em;
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block; /* Makes border-bottom fit content */
+            font-weight: 600;
+        }
+
+        /* Summary Section */
+        .summary p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Skills Section */
+        .skills-category h3 {
+            font-size: 1.3em;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #555;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .skill-pill {
+            background-color: var(--skill-pill-bg);
+            color: var(--skill-pill-text);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.95em;
+            font-weight: 500;
+            white-space: nowrap; /* Prevent breaking in the middle of a skill */
+            border: 1px solid rgba(0, 123, 255, 0.3);
+        }
+
+        /* Experience & Projects Styling */
+        .experience-item, .project-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background-color: #fcfcfc;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .experience-item:last-child, .project-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .job-title, .project-name {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .company-name, .project-tech {
+            font-size: 1.1em;
+            font-weight: 400;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .company-name span {
+            font-size: 0.9em; /* For location */
+            font-weight: normal;
+            color: #777;
+        }
+
+        .dates {
+            font-size: 0.95em;
+            font-style: italic;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .experience-description ul, .project-description ul {
+            list-style: disc;
+            padding-left: 25px;
+            margin-top: 15px;
+            margin-bottom: 0;
+        }
+
+        .experience-description ul li, .project-description ul li {
+            margin-bottom: 8px;
+            font-size: 0.98em;
+            color: #444;
+        }
+
+        /* Education Section */
+        .education-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background-color: #fcfcfc;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .education-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .degree {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .institution {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .education-dates {
+            font-size: 0.95em;
+            font-style: italic;
+            color: #777;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            .header p {
+                font-size: 1.2em;
+            }
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .container {
+                margin: 15px auto;
+                padding: 0 15px;
+            }
+            .section-card {
+                padding: 20px;
+            }
+            .section-card h2 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            .experience-item, .project-item, .education-item {
+                padding: 15px;
+            }
+            .job-title, .project-name, .degree {
+                font-size: 1.2em;
+            }
+            .company-name, .project-tech, .institution {
+                font-size: 1em;
+            }
+            .dates, .education-dates {
+                font-size: 0.9em;
+            }
+            .experience-description ul, .project-description ul {
+                padding-left: 20px;
+            }
+            .experience-description ul li, .project-description ul li {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .header p {
+                font-size: 1em;
+            }
+            .header {
+                padding: 40px 15px;
+            }
+            .skill-pill {
+                font-size: 0.85em;
+                padding: 6px 12px;
+            }
+            .section-card h2 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1>Sachin Pandey</h1>
+        <p>Full-Stack Software Engineer</p>
+        <div class="contact-info">
+            <span>Bengaluru, India</span>
+            <a href="tel:+917518693356">Phone: +91-7518693356</a>
+            <a href="mailto:33sachinedu@gmail.com">Email: 33sachinedu@gmail.com</a>
+            <a href="https://linkedin.com/in/sachinpandeyatd" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/sachinpandeyatd" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <section id="summary" class="section-card summary">
+            <h2>Summary</h2>
+            <p>Full-Stack Software Engineer (3 yrs exp) specializing in building scalable healthcare & e-commerce applications using PHP (Laravel & Plain), Java/Spring Boot, & React.js. Proficient in MySQL/PostgreSQL, REST APIs, Agile methodologies, and cloud deployment concepts.</p>
+        </section>
+
+        <section id="skills" class="section-card skills">
+            <h2>Skills</h2>
+            <div class="skills-category">
+                <h3>Backend</h3>
+                <div class="skill-list">
+                    <span class="skill-pill">PHP (Plain & Laravel)</span>
+                    <span class="skill-pill">Java (Spring/Spring Boot)</span>
+                    <span class="skill-pill">MySQL</span>
+                    <span class="skill-pill">PostgreSQL</span>
+                    <span class="skill-pill">REST APIs</span>
+                </div>
+            </div>
+            <div class="skills-category">
+                <h3>Frontend</h3>
+                <div class="skill-list">
+                    <span class="skill-pill">JavaScript</span>
+                    <span class="skill-pill">React.js</span>
+                    <span class="skill-pill">HTML5</span>
+                    <span class="skill-pill">CSS3</span>
+                    <span class="skill-pill">Bootstrap</span>
+                </div>
+            </div>
+            <div class="skills-category">
+                <h3>Full-Stack</h3>
+                <div class="skill-list">
+                    <span class="skill-pill">MVC & Layered Architectures</span>
+                    <span class="skill-pill">Full Lifecycle Development</span>
+                </div>
+            </div>
+            <div class="skills-category">
+                <h3>Tools & Environment</h3>
+                <div class="skill-list">
+                    <span class="skill-pill">Git/GitHub</span>
+                    <span class="skill-pill">Linux (GNU/Arch)</span>
+                    <span class="skill-pill">VS Code/IntelliJ/Eclipse</span>
+                </div>
+            </div>
+            <div class="skills-category">
+                <h3>Databases</h3>
+                <div class="skill-list">
+                    <span class="skill-pill">Relational (MySQL, PostgreSQL)</span>
+                    <span class="skill-pill">NoSQL (MongoDB)</span>
+                </div>
+            </div>
+            <div class="skills-category">
+                <h3>Methodologies & Cloud</h3>
+                <div class="skill-list">
+                    <span class="skill-pill">Agile/Waterfall</span>
+                    <span class="skill-pill">CI/CD Concepts</span>
+                    <span class="skill-pill">Azure/Hostinger (Familiar)</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section-card experience">
+            <h2>Experience</h2>
+            <div class="experience-item">
+                <h3 class="job-title">Full-stack Software Engineer</h3>
+                <p class="company-name">Infinite Computer Solutions <span>&mdash; Bengaluru</span></p>
+                <p class="dates">Aug 2022 – Ongoing</p>
+                <div class="experience-description">
+                    <ul>
+                        <li>Leveraged deep expertise in PHP and the Laravel framework to architect, develop, and deploy robust backend solutions for critical US Medicare and Medicaid systems, enhancing efficiency and optimizing complex workflows for general users.</li>
+                        <li>Engineered over 25 new, data-intensive interfaces from scratch using PHP and Laravel, significantly improving user interaction and data accessibility within the healthcare domain.</li>
+                        <li>Successfully implemented more than 50 complex Change Requests (CRs) by modifying and extending the PHP/Laravel codebase, delivering crucial functionality enhancements, and adapting systems to evolving healthcare regulations.</li>
+                        <li>Utilized PHP for seamless integration with MySQL and PostgreSQL databases, employing Eloquent ORM and optimized SQL queries for efficient data management.</li>
+                        <li>Collaborated in a multi-technology environment, ensuring smooth interoperability between PHP components and systems built with Java/Spring Boot, potentially utilizing Apache Camel for integration patterns.</li>
+                        <li><strong>Core Technologies:</strong> PHP, Laravel, MySQL, PostgreSQL, Git, Composer.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <h3 class="job-title">Full-stack Web Development Intern</h3>
+                <p class="company-name">Infinoscope <span>&mdash; Ahmedabad</span></p>
+                <p class="dates">Feb 2021 – Apr 2021</p>
+                <div class="experience-description">
+                    <ul>
+                        <li>Spearheaded the design, implementation, and deployment of a high-performing e-commerce platform with integrated CMS.</li>
+                        <li><strong>Used:</strong> PHP, Laravel, Javascript, React.js, REST APIs, MySQL, Hostinger (for deployment), Stripe (Payment gateway).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section-card projects">
+            <h2>Projects</h2>
+            <div class="project-item">
+                <h3 class="project-name">Chatme</h3>
+                <div class="project-description">
+                    <ul>
+                        <li>A real-time instant messaging app using PHP for backend operations, database management, and implementing long polling. JS on the client.</li>
+                        <li><strong>Technologies:</strong> PHP, JavaScript.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="project-item">
+                <h3 class="project-name">short-url</h3>
+                <div class="project-description">
+                    <ul>
+                        <li>A URL shortening service with create/delete functionality, utilizing PHP for all backend logic and database interactions.</li>
+                        <li><strong>Technologies:</strong> PHP.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section-card education">
+            <h2>Education</h2>
+            <div class="education-item">
+                <h3 class="degree">Bachelor of Technology in Computer Science and Engineering</h3>
+                <p class="institution">Babu Banarasi Das University, Lucknow</p>
+                <p class="education-dates">2018 - 2022</p>
+            </div>
+            <div class="education-item">
+                <h3 class="degree">High School (10th) and Secondary High School (12th) education with Science and Mathematics</h3>
+                <p class="institution">Radhika International Academy, Siddharth Nagar, Uttar Pradesh</p>
+                <p class="education-dates">2014 - 2018</p>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
