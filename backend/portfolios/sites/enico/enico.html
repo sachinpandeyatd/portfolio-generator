@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Portfolio</title>
+    <style>
+        /* General Styles & Resets */
+        :root {
+            --primary-color: #3498db; /* Blue */
+            --secondary-color: #2c3e50; /* Dark Blue/Grey */
+            --accent-color: #e74c3c; /* Red */
+            --text-color: #333;
+            --light-text-color: #ecf0f1; /* Light Grey */
+            --bg-color: #f4f7f6; /* Off-white */
+            --card-bg-color: #ffffff;
+            --border-color: #ddd;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            scroll-behavior: smooth;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Layout & Containers */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            padding: 60px 20px;
+            margin-bottom: 20px;
+            background-color: var(--card-bg-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        section:last-of-type {
+            margin-bottom: 0;
+        }
+
+        h1, h2, h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--secondary-color);
+            color: var(--light-text-color);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.95em;
+        }
+
+        .contact-info a {
+            color: var(--light-text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        /* Basic icon placeholders using unicode character */
+        .contact-info a::before {
+            content: '\2022'; /* Bullet point */
+            margin-right: 5px;
+            color: var(--primary-color);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--primary-color);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Allows nav items to wrap on smaller screens */
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--light-text-color);
+            font-weight: bold;
+            padding: 5px 10px;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            text-decoration: none;
+        }
+
+        /* About Section */
+        #about p {
+            text-align: center;
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .skill-category {
+            background-color: var(--bg-color);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-category h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            font-size: 1.4em;
+            text-align: left;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+        }
+
+        .skill-category ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-category li {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.95em;
+            white-space: nowrap; /* Prevents skill tags from breaking */
+        }
+
+        /* Experience & Education & Projects Common Styling */
+        .card {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            color: var(--secondary-color);
+            text-align: left; /* Override general h3 text-align */
+        }
+
+        .card-header p {
+            font-style: italic;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .card ul {
+            margin-top: 10px;
+            padding-left: 20px;
+            list-style: disc; /* Use disc for bullet points */
+        }
+
+        .card ul li {
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        /* Projects Specific */
+        .project-links {
+            margin-top: 15px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .project-links a {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-links a:hover {
+            background-color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        .project-technologies {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: var(--secondary-color);
+            color: var(--light-text-color);
+            font-size: 0.9em;
+            margin-top: 40px;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            header {
+                padding: 30px 15px;
+            }
+            nav .container {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 0;
+            }
+            nav a {
+                padding: 8px 15px;
+                display: block; /* Make links block level for better tapping on mobile */
+                text-align: center;
+            }
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            section {
+                padding: 40px 15px;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                padding: 20px;
+            }
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .card-header h3 {
+                margin-bottom: 5px;
+            }
+            .project-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            .skill-category h3 {
+                font-size: 1.2em;
+            }
+            .skill-category li {
+                padding: 6px 12px;
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>User Portfolio</h1>
+            <p>Expert Web Developer</p>
+            <div class="contact-info">
+                <a href="mailto:user.email@example.com">user.email@example.com</a>
+                <a href="tel:+11234567890">(123) 456-7890</a>
+                <a href="https://linkedin.com/in/user" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://github.com/user" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#education">Education</a>
+            <a href="#projects">Projects</a>
+        </div>
+    </nav>
+
+    <main>
+        <section id="about" class="container">
+            <h2>About Me</h2>
+            <p>A highly motivated and detail-oriented web developer with a passion for creating dynamic, responsive, and user-friendly web applications. With a solid foundation in front-end and back-end technologies, I am adept at transforming complex problems into elegant solutions. I thrive in collaborative environments and am committed to continuous learning and staying updated with the latest industry trends. My goal is to leverage strong technical skills and innovative thinking to contribute to impactful projects that deliver exceptional user experiences.</p>
+        </section>
+
+        <section id="skills" class="container">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <ul>
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>Python</li>
+                        <li>SQL</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Frameworks & Libraries</h3>
+                    <ul>
+                        <li>React</li>
+                        <li>Node.js</li>
+                        <li>Express.js</li>
+                        <li>Flask</li>
+                        <li>jQuery</li>
+                        <li>RESTful APIs</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools & Platforms</h3>
+                    <ul>
+                        <li>Git & GitHub</li>
+                        <li>Docker</li>
+                        <li>Webpack</li>
+                        <li>Babel</li>
+                        <li>npm/Yarn</li>
+                        <li>VS Code</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Databases & Cloud</h3>
+                    <ul>
+                        <li>PostgreSQL</li>
+                        <li>MongoDB</li>
+                        <li>MySQL</li>
+                        <li>Firebase</li>
+                        <li>AWS (S3, EC2 - Basic)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="container">
+            <h2>Experience</h2>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Senior Web Developer, Tech Innovations Inc.</h3>
+                    <p>New York, NY | Jan 2021 – Present</p>
+                </div>
+                <ul>
+                    <li>Led the development of a new customer relationship management (CRM) platform using React.js and Node.js, improving client management efficiency by 30%.</li>
+                    <li>Collaborated with a team of 5 developers to design and implement robust RESTful APIs, handling over 10,000 requests per minute.</li>
+                    <li>Optimized application performance by identifying and resolving bottlenecks, resulting in a 20% reduction in load times.</li>
+                    <li>Mentored junior developers on best practices in clean code, responsive design, and version control (Git).</li>
+                    <li>Participated in Agile sprint planning, daily stand-ups, and retrospective meetings to ensure timely project delivery.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Junior Front-End Developer, Creative Solutions Co.</h3>
+                    <p>San Francisco, CA | Jun 2018 – Dec 2020</p>
+                </div>
+                <ul>
+                    <li>Developed and maintained responsive user interfaces for various client websites using HTML, CSS, and JavaScript.</li>
+                    <li>Implemented interactive features and animations with jQuery and vanilla JavaScript to enhance user experience.</li>
+                    <li>Ensured cross-browser compatibility and accessibility (WCAG 2.1) standards were met across all projects.</li>
+                    <li>Worked closely with UX/UI designers to translate wireframes and mockups into functional web pages.</li>
+                    <li>Contributed to code reviews and actively participated in team discussions to improve development processes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="education" class="container">
+            <h2>Education</h2>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Bachelor of Science in Computer Science</h3>
+                    <p>University of Technology | Anytown, State | 2018</p>
+                </div>
+                <ul>
+                    <li>Graduated with Honors.</li>
+                    <li>Relevant Coursework: Data Structures & Algorithms, Database Management Systems, Web Development, Software Engineering.</li>
+                    <li>Dean's List: 2015, 2016, 2017.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Web Development Bootcamp Certificate</h3>
+                    <p>DevMaster Academy | Online | 2017</p>
+                </div>
+                <ul>
+                    <li>Completed an intensive 12-week full-stack web development program.</li>
+                    <li>Gained proficiency in MERN stack (MongoDB, Express.js, React.js, Node.js).</li>
+                    <li>Developed multiple solo and collaborative projects, applying modern development workflows.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="projects" class="container">
+            <h2>Projects</h2>
+            <div class="card">
+                <div class="card-header">
+                    <h3>E-commerce Platform</h3>
+                    <p>Full-stack online store with user authentication and payment integration.</p>
+                </div>
+                <p class="project-technologies">Technologies: React, Redux, Node.js, Express.js, MongoDB, Stripe API, JWT.</p>
+                <ul>
+                    <li>Implemented user authentication (registration, login, logout) with JWT.</li>
+                    <li>Developed product catalog, shopping cart, and checkout functionalities.</li>
+                    <li>Integrated Stripe API for secure payment processing.</li>
+                    <li>Designed a responsive UI, optimized for various devices.</li>
+                </ul>
+                <div class="project-links">
+                    <a href="https://github.com/user/ecommerce-platform" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+                    <a href="https://demo.example.com/ecommerce" target="_blank" rel="noopener noreferrer">Live Demo</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Task Management App</h3>
+                    <p>A personal productivity tool for organizing tasks and projects.</p>
+                </div>
+                <p class="project-technologies">Technologies: Vue.js, Flask (Python), PostgreSQL, RESTful API.</p>
+                <ul>
+                    <li>Created a intuitive drag-and-drop interface for task prioritization.</li>
+                    <li>Developed a RESTful API backend using Flask for task persistence.</li>
+                    <li>Implemented user accounts with task privacy features.</li>
+                    <li>Deployed the application on a cloud server (placeholder).</li>
+                </ul>
+                <div class="project-links">
+                    <a href="https://github.com/user/task-manager-app" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+                    <a href="https://demo.example.com/task-manager" target="_blank" rel="noopener noreferrer">Live Demo</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Portfolio Website (This Site!)</h3>
+                    <p>A responsive personal portfolio showcasing my skills and projects.</p>
+                </div>
+                <p class="project-technologies">Technologies: HTML5, CSS3 (Flexbox, Grid, Media Queries), Vanilla JavaScript.</p>
+                <ul>
+                    <li>Designed and developed a modern, clean, and responsive user interface.</li>
+                    <li>Utilized CSS custom properties for maintainable and scalable styling.</li>
+                    <li>Ensured optimal performance and accessibility best practices.</li>
+                </ul>
+                <div class="project-links">
+                    <a href="https://github.com/user/portfolio-site" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 User Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -34,7 +34,7 @@ public class GeminiService {
 							"Do NOT use any external CDN links for libraries like Bootstrap, jQuery, or font providers. All resources must be inline. " +
 							"The portfolio should look modern and professional. Extract key information like name, contact details, summary/objective, skills, experience, education, and projects (if available) from the resume text and display them in well-structured sections. " +
 							"Make the design responsive. If no specific name is found, use 'User Portfolio'. " +
-							"Output ONLY the HTML code starting with `<!DOCTYPE html>` and ending with `</html>`. Do not include any explanatory text before or after the HTML code itself.\n\n" +
+							"Output ONLY the HTML code starting with `<!DOCTYPE html>` and ending with `</html>`. Do not include any explanatory text or markdown code block markers like ```html or ``` before or after the HTML code itself.\n\n" +
 							"Resume Text:\n" +
 							"```\n" +
 							"%s\n" +

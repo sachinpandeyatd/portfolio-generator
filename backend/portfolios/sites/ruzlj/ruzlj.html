@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Portfolio - Web Developer</title>
+    <style>
+        :root {
+            --primary-color: #3498db; /* A professional blue */
+            --secondary-color: #2c3e50; /* Darker blue/grey for text and backgrounds */
+            --accent-color: #e74c3c; /* A subtle accent red */
+            --background-light: #f8f9fa;
+            --background-dark: #ecf0f1;
+            --text-color: #333;
+            --light-text-color: #555;
+            --border-color: #ddd;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Base Styles */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-light);
+            font-size: 16px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            color: var(--secondary-color);
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 2.8em; }
+        h2 { font-size: 2.2em; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5em; margin-bottom: 1em; }
+        h3 { font-size: 1.6em; }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+        }
+
+        header h1 {
+            color: #fff;
+            margin-bottom: 5px;
+            font-size: 3.5em;
+        }
+
+        header .tagline {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .contact-info a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.1em;
+        }
+
+        .contact-info a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Main Content Sections */
+        .main {
+            padding: 40px 0;
+        }
+
+        .section-block {
+            background-color: #fff;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+        }
+
+        /* About Section */
+        #about p {
+            font-size: 1.1em;
+            color: var(--light-text-color);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .skill-category ul li {
+            background-color: var(--background-dark);
+            margin-bottom: 8px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 0.95em;
+            color: var(--light-text-color);
+            transition: background-color 0.3s ease;
+        }
+
+        .skill-category ul li:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Experience & Education Section */
+        .job-entry, .education-entry {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .job-entry:last-child, .education-entry:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .job-entry h3, .education-entry h3 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .job-entry .company, .education-entry .university {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .job-duration, .education-duration {
+            font-size: 0.9em;
+            color: var(--light-text-color);
+            margin-bottom: 10px;
+            display: block; /* Ensure it's on its own line */
+        }
+
+        .job-entry ul li {
+            margin-bottom: 5px;
+            padding-left: 1.2em; /* Indent list items */
+            position: relative;
+        }
+        .job-entry ul li::before {
+            content: '•';
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+        .education-entry p {
+            margin-bottom: 5px;
+            color: var(--light-text-color);
+        }
+
+
+        /* Projects Section */
+        .project-entry {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .project-entry:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .project-entry h3 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .project-description {
+            margin-bottom: 10px;
+            color: var(--light-text-color);
+        }
+
+        .project-tech {
+            font-size: 0.9em;
+            color: var(--light-text-color);
+            margin-bottom: 15px;
+        }
+
+        .project-link {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .project-link:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9em;
+            margin-top: 30px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+            header .tagline {
+                font-size: 1.1em;
+            }
+            .contact-info a {
+                display: block;
+                margin: 5px 0;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            .section-block {
+                padding: 25px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr; /* Stack skill categories on small screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 30px 0;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+            .section-block {
+                padding: 20px;
+            }
+            body {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>User Portfolio</h1>
+            <p class="tagline">Passionate Web Developer</p>
+            <div class="contact-info">
+                <a href="mailto:email@example.com">email@example.com</a> |
+                <a href="tel:+1234567890">+1 (234) 567-890</a> |
+                <a href="https://linkedin.com/in/user" target="_blank">LinkedIn</a> |
+                <a href="https://github.com/user" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="about" class="section-block">
+            <h2>About Me</h2>
+            <p>
+                A dedicated and results-driven Web Developer with a passion for creating dynamic and intuitive user experiences.
+                Proficient in modern front-end and back-end technologies, with a strong commitment to producing clean, efficient, and maintainable code.
+                Always eager to learn new technologies and solve complex problems.
+            </p>
+        </section>
+
+        <section id="skills" class="section-block">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <ul>
+                        <li>JavaScript (ES6+)</li>
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>Python</li>
+                        <li>SQL</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <ul>
+                        <li>React</li>
+                        <li>Vue.js</li>
+                        <li>Angular</li>
+                        <li>Responsive Design</li>
+                        <li>Sass/Less</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Backend & Databases</h3>
+                    <ul>
+                        <li>Node.js (Express)</li>
+                        <li>Django/Flask</li>
+                        <li>RESTful APIs</li>
+                        <li>MongoDB</li>
+                        <li>PostgreSQL</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools & Others</h3>
+                    <ul>
+                        <li>Git & GitHub</li>
+                        <li>Webpack</li>
+                        <li>Docker</li>
+                        <li>AWS (EC2, S3)</li>
+                        <li>Agile/Scrum</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section-block">
+            <h2>Experience</h2>
+            <div class="job-entry">
+                <h3>Web Developer <span class="company">Tech Solutions Inc.</span></h3>
+                <p class="job-duration">January 2020 – Present</p>
+                <ul>
+                    <li>Developed and maintained responsive web applications using React.js and Node.js.</li>
+                    <li>Collaborated with design and product teams to translate wireframes and mockups into functional web pages.</li>
+                    <li>Implemented RESTful APIs for seamless data communication between front-end and back-end systems.</li>
+                    <li>Optimized application performance, reducing load times by 25%.</li>
+                </ul>
+            </div>
+            <div class="job-entry">
+                <h3>Junior Web Developer <span class="company">Innovate Web LLC</span></h3>
+                <p class="job-duration">June 2018 – December 2019</p>
+                <ul>
+                    <li>Assisted in the development of client-side web applications using HTML, CSS, and JavaScript.</li>
+                    <li>Learned and applied best practices for web accessibility and SEO.</li>
+                    <li>Participated in code reviews and contributed to team knowledge sharing sessions.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="projects" class="section-block">
+            <h2>Projects</h2>
+            <div class="project-entry">
+                <h3>E-commerce Platform</h3>
+                <p class="project-description">A full-stack e-commerce application featuring product browsing, shopping cart, and secure checkout functionalities.</p>
+                <p class="project-tech"><strong>Technologies:</strong> React, Node.js, Express, MongoDB, Stripe API</p>
+                <a href="#" target="_blank" class="project-link">View Project</a>
+            </div>
+            <div class="project-entry">
+                <h3>Task Management App</h3>
+                <p class="project-description">A responsive task management tool with user authentication, CRUD operations for tasks, and drag-and-drop reordering.</p>
+                <p class="project-tech"><strong>Technologies:</strong> Vue.js, Firebase, CSS Grid</p>
+                <a href="#" target="_blank" class="project-link">View Project</a>
+            </div>
+            <div class="project-entry">
+                <h3>Portfolio Website Template</h3>
+                <p class="project-description">A customizable and responsive template for personal portfolios, showcasing various design patterns and animations.</p>
+                <p class="project-tech"><strong>Technologies:</strong> HTML5, CSS3, JavaScript (Vanilla)</p>
+                <a href="#" target="_blank" class="project-link">View Project</a>
+            </div>
+        </section>
+
+        <section id="education" class="section-block">
+            <h2>Education</h2>
+            <div class="education-entry">
+                <h3>Bachelor of Science in Computer Science</h3>
+                <p class="university">University Name</p>
+                <p class="education-duration">September 2014 – May 2018</p>
+                <p>Relevant Coursework: Data Structures and Algorithms, Web Development, Database Management, Software Engineering.</p>
+            </div>
+            <div class="education-entry">
+                <h3>Online Web Development Bootcamp</h3>
+                <p class="university">Online Learning Platform</p>
+                <p class="education-duration">March 2018 – September 2018</p>
+                <p>Intensive program covering full-stack web development with a focus on modern frameworks and agile methodologies.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 User Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        // No JavaScript is required for this static portfolio.
+    </script>
+</body>
+</html>

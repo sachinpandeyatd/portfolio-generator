@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Portfolio</title>
+    <style>
+        /* Basic Reset & Typography */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary-bg: #f4f7f6;
+            --secondary-bg: #ffffff;
+            --text-color: #333;
+            --accent-color: #007bff;
+            --accent-hover: #0056b3;
+            --border-color: #e0e0e0;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --heading-font: 'system-ui', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            --body-font: 'system-ui', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        }
+
+        body {
+            font-family: var(--body-font);
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--primary-bg);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--heading-font);
+            color: var(--text-color);
+            margin-bottom: 0.8em;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 2.8em; }
+        h2 { font-size: 2.2em; }
+        h3 { font-size: 1.8em; }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        /* Layout & Structure */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            background-color: var(--secondary-bg);
+            padding: 60px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-light);
+        }
+
+        section:last-of-type {
+            margin-bottom: 0;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--text-color);
+            color: var(--secondary-bg);
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 2px 8px var(--shadow-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header h1 {
+            color: var(--secondary-bg);
+            margin-bottom: 10px;
+            font-size: 3em;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: var(--secondary-bg);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--accent-color);
+            color: var(--secondary-bg);
+            text-decoration: none;
+        }
+
+        /* Section Specific Styles */
+        #about h2, #skills h2, #experience h2, #projects h2, #education h2, #contact h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        #about h2::after, #skills h2::after, #experience h2::after, #projects h2::after, #education h2::after, #contact h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            padding-top: 20px;
+        }
+
+        .skill-card {
+            background-color: var(--primary-bg);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px var(--shadow-light);
+        }
+
+        .skill-card h3 {
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .skill-card ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .skill-card ul li {
+            background-color: var(--secondary-bg);
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-card ul li::before {
+            content: '✓';
+            color: var(--accent-color);
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        /* Experience and Education */
+        .experience-item, .education-item {
+            background-color: var(--primary-bg);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 2px 8px var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .experience-item:hover, .education-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--shadow-light);
+        }
+
+        .experience-item h3, .education-item h3 {
+            margin-bottom: 5px;
+            color: var(--accent-color);
+        }
+
+        .experience-item p.company-date, .education-item p.institution-date {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .experience-item ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .experience-item ul li {
+            margin-bottom: 8px;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding-top: 20px;
+        }
+
+        .project-card {
+            background-color: var(--primary-bg);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px var(--shadow-light);
+        }
+
+        .project-card h3 {
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .project-card p {
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .project-card .project-links a {
+            display: inline-block;
+            margin-right: 15px;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        #contact p {
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 1em;
+        }
+
+        #contact p a {
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: var(--secondary-bg);
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 20px;
+            font-size: 0.9em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                margin-top: 20px;
+                gap: 10px;
+            }
+
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            section {
+                padding: 40px 15px;
+                margin-bottom: 15px;
+            }
+
+            .skills-grid, .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .skill-card ul li {
+                font-size: 0.9em;
+            }
+
+            .experience-item, .education-item, .project-card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            nav ul li a {
+                padding: 6px 10px;
+                font-size: 0.9em;
+            }
+
+            h2 {
+                font-size: 1.6em;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            section {
+                padding: 30px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>User Portfolio</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Welcome to my portfolio! As an expert web developer, I build robust, scalable, and user-friendly web applications. This is a placeholder for your professional summary and objective. Tell visitors about your passion for web development, your key strengths, and what you aim to achieve in your career or next role.</p>
+            <p>You can elaborate on your philosophy, the types of problems you enjoy solving, and how you approach development challenges. Make this section personal and engaging to highlight your unique professional identity.</p>
+        </section>
+
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Frontend Development</h3>
+                    <ul>
+                        <li>HTML5, CSS3 (Flexbox, Grid)</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>React.js (or your preferred framework like Vue.js/Angular)</li>
+                        <li>Responsive Design</li>
+                        <li>UI/UX Principles</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Backend Development</h3>
+                    <ul>
+                        <li>Node.js (Express.js)</li>
+                        <li>Python (Django/Flask)</li>
+                        <li>PHP (Laravel/Symfony)</li>
+                        <li>RESTful APIs</li>
+                        <li>Authentication & Authorization</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Databases & Tools</h3>
+                    <ul>
+                        <li>MongoDB, PostgreSQL, MySQL</li>
+                        <li>Git, GitHub/GitLab</li>
+                        <li>Docker</li>
+                        <li>Cloud Platforms (AWS/Azure/GCP basics)</li>
+                        <li>Webpack, Babel (or Vite, Parcel)</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Soft Skills & Other</h3>
+                    <ul>
+                        <li>Problem Solving</li>
+                        <li>Team Collaboration</li>
+                        <li>Agile Methodologies</li>
+                        <li>Communication</li>
+                        <li>Continuous Learning</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            <div class="experience-item">
+                <h3>Senior Web Developer</h3>
+                <p class="company-date">Tech Solutions Inc. | Jan 2020 – Present</p>
+                <ul>
+                    <li>Led the development of a high-traffic e-commerce platform using React and Node.js, improving load times by 30%. (Placeholder)</li>
+                    <li>Mentored junior developers and conducted code reviews to ensure best practices and code quality. (Placeholder)</li>
+                    <li>Collaborated with product teams to translate business requirements into technical specifications and features. (Placeholder)</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3>Junior Web Developer</h3>
+                <p class="company-date">Innovate Web Agency | Jul 2018 – Dec 2019</p>
+                <ul>
+                    <li>Developed responsive web interfaces using HTML, CSS, and JavaScript for various client projects. (Placeholder)</li>
+                    <li>Assisted in building and maintaining RESTful APIs for mobile and web applications. (Placeholder)</li>
+                    <li>Participated in daily stand-ups and sprint planning sessions within an Agile environment. (Placeholder)</li>
+                </ul>
+            </div>
+            <p style="text-align: center; margin-top: 30px;"><em>(Add your specific work experience, roles, responsibilities, and key achievements here)</em></p>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>E-commerce Store</h3>
+                    <p>A full-stack e-commerce application built with React, Node.js, and MongoDB, featuring user authentication, product catalog, shopping cart, and order processing. (Placeholder)</p>
+                    <div class="project-links">
+                        <a href="https://github.com/yourusername/ecommerce-project" target="_blank">GitHub Repo</a>
+                        <a href="https://yourprojectlivedemo.com" target="_blank">Live Demo</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>Task Management App</h3>
+                    <p>A responsive web application for managing tasks, with features like task creation, assignment, due dates, and status updates. Developed using Vue.js and a Firebase backend. (Placeholder)</p>
+                    <div class="project-links">
+                        <a href="https://github.com/yourusername/task-app" target="_blank">GitHub Repo</a>
+                        <a href="https://yourtaskappdemo.com" target="_blank">Live Demo</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>Personal Blog Platform</h3>
+                    <p>A simple blog platform allowing users to create, edit, and publish blog posts. Implemented with Python (Flask) and PostgreSQL, including Markdown support. (Placeholder)</p>
+                    <div class="project-links">
+                        <a href="https://github.com/yourusername/blog-platform" target="_blank">GitHub Repo</a>
+                        <a href="https://yourblogdemo.com" target="_blank">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 30px;"><em>(Showcase your best projects here with brief descriptions and links to live demos or repositories)</em></p>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div class="education-item">
+                <h3>Master of Science in Computer Science</h3>
+                <p class="institution-date">University of Tech | Sep 2017 – May 2019</p>
+                <p>Focused on advanced algorithms, distributed systems, and web security. (Placeholder)</p>
+            </div>
+            <div class="education-item">
+                <h3>Bachelor of Science in Software Engineering</h3>
+                <p class="institution-date">State University | Sep 2013 – May 2017</p>
+                <p>GPA: 3.8/4.0. Relevant coursework included data structures, object-oriented programming, and database management. (Placeholder)</p>
+            </div>
+            <p style="text-align: center; margin-top: 30px;"><em>(List your educational background, degrees, institutions, and dates)</em></p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Feel free to reach out to me for collaboration, opportunities, or just a chat!</p>
+            <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+            <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></p>
+            <p>GitHub: <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></p>
+            <p style="margin-top: 30px;"><em>(Update with your actual contact information)</em></p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 User Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

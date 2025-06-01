@@ -5,6 +5,7 @@ import com.portfoliogenerator.exception.FileStorageException;
 import com.portfoliogenerator.exception.ResourceNotFoundException;
 import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.nio.charset.MalformedInputException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,15 +28,15 @@ public class PortfolioService {
 	private final Path portfolioStorageLocation;
 	private final IdGeneratorService idGeneratorService;
 	private final String appBaseUrl;
-	private final Tika tika;
 	private final GeminiService geminiService;
+	private final Tika tika;
 
-	public PortfolioService(@Value("${app.portfolio.storage-path}") String storagePath, @Value("${app.portfolio.base-url}") String baseUrl, IdGeneratorService idGeneratorService, GeminiService geminiService){
+	public PortfolioService(@Value("${app.portfolio.storage-path}") String storagePath, @Value("${app.portfolio.base-url}") String baseUrl, IdGeneratorService idGeneratorService, GeminiService geminiService, Tika tika){
 		this.portfolioStorageLocation = Paths.get(storagePath).toAbsolutePath().normalize();
 		this.appBaseUrl = baseUrl;
 		this.idGeneratorService = idGeneratorService;
-		this.tika = new Tika();
 		this.geminiService = geminiService;
+		this.tika = tika;
 
 		try{
 			Files.createDirectories(this.portfolioStorageLocation);
@@ -77,13 +77,14 @@ public class PortfolioService {
 		}
 
 		System.out.println("---- Parsed Resume Text for " + portfolioId + " ----");
-		System.out.println(resumeText.substring(0, Math.min(resumeText.length(), 500)) + "..."); // Print first 500 chars
+		System.out.println(resumeText.substring(0, Math.min(resumeText.length(), 500)) + "...");
 		System.out.println("--------------------------------------");
 
 		String generatedHtmlContent;
 
 		try{
 			System.out.println("PortfolioService: Calling GeminiService to generate HTML for ID: " + portfolioId);
+			System.out.println("Resume Text======= \n" + resumeText);
 			generatedHtmlContent = geminiService.genratePortfolioHtml(resumeText);
 		}catch (IOException e){
 			try {
