@@ -8,8 +8,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**") // Apply to all endpoints
-				.allowedOrigins("http://localhost:5173") // Your React app's URL (Vite default port)
+		registry.addMapping("/**")
+				.allowedOrigins(
+						"http://localhost:5173",
+						"https://portfolio-generator-three.vercel.app/"
+				)
 				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 				.allowedHeaders("*")
 				.allowCredentials(true);
