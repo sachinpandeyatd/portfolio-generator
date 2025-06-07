@@ -1,9 +1,0 @@
-/home/sachin/SCP/portfolio-generator/backend/src/main/java/com/portfoliogenerator/dto/PortfolioResponse.java
-/home/sachin/SCP/portfolio-generator/backend/src/main/java/com/portfoliogenerator/config/WebConfig.java
-/home/sachin/SCP/portfolio-generator/backend/src/main/java/com/portfoliogenerator/controller/PortfolioController.java
-/home/sachin/SCP/portfolio-generator/backend/src/main/java/com/portfoliogenerator/service/GeminiService.java
-/home/sachin/SCP/portfolio-generator/backend/src/main/java/com/portfoliogenerator/exception/FileStorageException.java
-/home/sachin/SCP/portfolio-generator/backend/src/main/java/com/portfoliogenerator/exception/ResourceNotFoundException.java
-/home/sachin/SCP/portfolio-generator/backend/src/main/java/com/portfoliogenerator/PortfolioGeneratorApplication.java
-/home/sachin/SCP/portfolio-generator/backend/src/main/java/com/portfoliogenerator/service/IdGeneratorService.java
-/home/sachin/SCP/portfolio-generator/backend/src/main/java/com/portfoliogenerator/service/PortfolioService.java
