@@ -48,7 +48,7 @@ function App() {
         {error && <p className="error-message main-error">{error}</p>}
         {!isLoading && portfolioData && (
           <PortfolioLinks portfolioUrl={portfolioData.portfolioUrl}
-            downloadUrl={portfolioData.portfolioUrl} portfolioId={portfolioData.portfolioId} />
+            downloadUrl={portfolioData.downloadUrl} portfolioId={portfolioData.portfolioId} />
         )}
       </main>
       <footer><p>&copy; {new Date().getFullYear()} Portfolio Generator</p></footer>

@@ -39,8 +39,8 @@ WORKDIR /app
 # We're copying it to /app/application.jar in the final image.
 COPY --from=builder /app/target/*.jar application.jar
 
-# Add metadata (optional but good practice)
-LABEL maintainer="your-email@example.com"
+# Add metadata
+LABEL maintainer="33sachinedu@gmail.com"
 LABEL description="Spring Boot backend for AI Portfolio Generator"
 
 # Expose the port your Spring Boot application listens on

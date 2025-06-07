@@ -16,7 +16,7 @@ const PortfolioLinks = ({portfolioUrl, downloadUrl, portfolioId}) => {
             </p>
             <p>
                 <strong>Download HTML:</strong>{'  '}
-                <a href={downloadUrl} download={`${portfolioId.html}`}>Download {portfolioId}.HTML</a>
+                <a href={downloadUrl} download={`${portfolioId.html}`}>Download {portfolioId}.html</a>
             </p>
             <p className="note">
                 The "View" link will take you to your publicly accessible portfolio page.
